@@ -1,3 +1,6 @@
-export default function App() {
-  return <h1 className="text-10xl font-bold underline">Hello world!</h1>;
+import { BrowserRouter } from "react-router";
+
+function App() {
+  return <BrowserRouter></BrowserRouter>;
 }
+export default App;
