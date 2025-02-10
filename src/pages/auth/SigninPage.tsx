@@ -1,37 +1,32 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signIn } from "../../service/auth.service";
+import { UserType } from "../../types/user.type";
 
 const SigninPage = () => {
-  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [user, setUser] = useState<Partial<UserType>>({});
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/auth/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("access_token", data.access_token);
-        navigate("/home");
+      const data = await signIn(user as UserType);
+      if (data.access_token) {
+        localStorage.setItem("jwtToken", data.access_token);
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Login failed.");
+        throw new Error("Invalid token");
       }
-    } catch (err) {
-      setError("An error occurred. Please try again.");
+      setUser({});
+      navigate("/");
+    } catch (error) {
+      setError("Invalid email or password");
     }
   };
 
@@ -52,16 +47,16 @@ const SigninPage = () => {
           <div className="mb-6">
             <label
               className="block text-blue-500 mb-2 text-lg"
-              htmlFor="username"
+              htmlFor="email"
             >
-              Username
+              Email
             </label>
             <input
-              id="username"
-              value={formData.username}
+              id="email"
+              value={user.email}
               onChange={handleChange}
               className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your username"
+              placeholder="Enter your email"
               required
             />
           </div>
@@ -75,7 +70,7 @@ const SigninPage = () => {
             <input
               type="password"
               id="password"
-              value={formData.password}
+              value={user.password}
               onChange={handleChange}
               className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"

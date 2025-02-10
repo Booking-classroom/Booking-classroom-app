@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserType } from "../../types/user.type"; 
+import { signUp } from "../../service/auth.service";
 
 const SignupPage = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const [user, setUser] = useState<Partial<UserType>>({});
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,25 +20,15 @@ const SignupPage = () => {
     setSuccess("");
 
     try {
-      const response = await fetch("http://localhost:8000/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSuccess("User created successfully!");
-        setFormData({ username: "", email: "", password: "" });
-      } else {
-        const data = await response.json();
-        setError(data.message || "Failed to create user.");
-      }
-    } catch (err) {
-      setError("An error occurred. Please try again.");
+      const data = await signUp(user as UserType);
+      setUser(data);
+      setSuccess("Account created successfully");
+      navigate("/login");
+    } catch (error) {
+      setError("Invalid email or password");
     }
-  };
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center items-center">
@@ -62,7 +51,7 @@ const SignupPage = () => {
               </label>
               <input
                 id="username"
-                value={formData.username}
+                value={user.username}
                 onChange={handleChange}
                 className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your username"
@@ -79,7 +68,7 @@ const SignupPage = () => {
               <input
                 type="email"
                 id="email"
-                value={formData.email}
+                value={user.email}
                 onChange={handleChange}
                 className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your email"
@@ -96,7 +85,7 @@ const SignupPage = () => {
               <input
                 type="password"
                 id="password"
-                value={formData.password}
+                value={user.password}
                 onChange={handleChange}
                 className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your password"
