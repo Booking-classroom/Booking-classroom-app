@@ -1,3 +1,13 @@
-export default function App() {
-  return <h1 className="text-10xl font-bold underline">Hello world!</h1>;
+import { BrowserRouter } from "react-router";
+import Navbar from "./components/Navbar";
+import RoutesWrapper from "./components/ RoutesWrapper";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <RoutesWrapper />
+    </BrowserRouter>
+  );
 }
+export default App;
