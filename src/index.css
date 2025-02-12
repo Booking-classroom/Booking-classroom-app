@@ -6,4 +6,18 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  :root {
+    --custom-title-size: 80px;
+  }
+}
+
+body {
+  background-image: url("img/class.jpg");
+  background-size: cover; /* Растягивает картинку, сохраняя пропорции */
+  background-position: center; /* Центрирует изображение */
+  background-repeat: no-repeat; /* Запрещает повторение */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }

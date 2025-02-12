@@ -25,11 +25,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between p-5 bg-white shadow-md border-b border-gray-200">
+    <nav className="flex items-center justify-between p-5  shadow-md ">
       <div className="flex items-center space-x-6 text-lg font-semibold">
         <Link
           to="/home"
-          className="flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition duration-200"
+          className="flex items-center space-x-2 text-white hover:text-white transition duration-200"
         >
           <FaChalkboardTeacher className="text-2xl" />
           <span className="text-xl font-bold">Booking Classroom</span>
@@ -41,14 +41,14 @@ const Navbar = () => {
           <>
             <Link
               to="/login"
-              className="flex items-center space-x-2 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+              className="flex items-center space-x-2 text-white px-4 py-2 rounded-lg shadow-md"
             >
               <FaSignInAlt />
               <span>Connexion</span>
             </Link>
             <Link
               to="signup"
-              className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+              className="flex items-center space-x-2  text-white px-4 py-2 rounded-lg shadow-md"
             >
               <FaUserCircle />
               <span>Créer un compte</span>
