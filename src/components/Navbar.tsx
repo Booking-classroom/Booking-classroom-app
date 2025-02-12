@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="flex items-center space-x-6 text-lg font-semibold">
         <Link
           to="/home"
-          className="flex items-center space-x-2 text-white hover:text-white transition duration-200"
+          className="flex items-center space-x-2 text-black hover:text-gray-500 transition duration-200"
         >
           <FaChalkboardTeacher className="text-2xl" />
           <span className="text-xl font-bold">Booking Classroom</span>
@@ -41,14 +41,14 @@ const Navbar = () => {
           <>
             <Link
               to="/login"
-              className="flex items-center space-x-2 text-white px-4 py-2 rounded-lg shadow-md"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
             >
               <FaSignInAlt />
               <span>Connexion</span>
             </Link>
             <Link
               to="signup"
-              className="flex items-center space-x-2  text-white px-4 py-2 rounded-lg shadow-md"
+              className="flex items-center space-x-2  text-black px-4 py-2 rounded-lg shadow-md"
             >
               <FaUserCircle />
               <span>Créer un compte</span>
