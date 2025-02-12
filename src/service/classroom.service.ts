@@ -1,7 +1,6 @@
 import { ClassroomType } from "../types/classroom.type";
 
-
-const API_URL = import.meta.env.API_URL;
+const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
 
 export const createClassroom = async (classroom: ClassroomType) => {
   const response = await fetch(`${API_URL}/classroom`, {

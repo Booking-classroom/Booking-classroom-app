@@ -55,6 +55,7 @@ const Navbar = () => {
             </Link>
           </>
         ) : (
+          <>
           <button
             onClick={handleLogout}
             className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition duration-300"
@@ -62,6 +63,14 @@ const Navbar = () => {
             <FaSignOutAlt />
             <span>Déconnexion</span>
           </button>
+
+          <Link
+              to="booking"
+              className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+            >
+              <span>Réserver</span>
+            </Link>
+        </>
         )}
       </div>
     </nav>

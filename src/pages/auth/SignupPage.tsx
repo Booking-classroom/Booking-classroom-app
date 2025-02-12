@@ -11,7 +11,7 @@ const SignupPage = () => {
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,11 +21,16 @@ const SignupPage = () => {
 
     try {
       const data = await signUp(user as UserType);
+
+      if (data.statusCode && data.statusCode >= 400) {
+        throw new Error(data.message || "An error occurred");
+      }
+      
       setUser(data);
       setSuccess("Account created successfully");
       navigate("/login");
     } catch (error) {
-      setError("Invalid email or password");
+      setError('email already exist');
     }
   }
 
@@ -44,51 +49,48 @@ const SignupPage = () => {
           <form onSubmit={handleSubmit} className="w-full">
             <div className="mb-6">
               <label
-                className="block text-blue-500 mb-2 text-lg"
-                htmlFor="username"
-              >
+                className="block text-blue-500 mb-2 text-lg">
                 Username
               </label>
               <input
+              onChange={handleChange}
                 id="username"
                 value={user.username}
-                onChange={handleChange}
-                className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                name="username"
                 placeholder="Enter your username"
+                className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
             <div className="mb-6">
               <label
-                className="block text-blue-500 mb-2 text-lg"
-                htmlFor="email"
-              >
+                className="block text-blue-500 mb-2 text-lg">
                 Email
               </label>
               <input
+                onChange={handleChange}
                 type="email"
                 id="email"
+                name="email"
                 value={user.email}
-                onChange={handleChange}
-                className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your email"
+                className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
             <div className="mb-6">
               <label
-                className="block text-blue-500 mb-2 text-lg"
-                htmlFor="password"
-              >
+                className="block text-blue-500 mb-2 text-lg">
                 Password
               </label>
               <input
+                onChange={handleChange}
                 type="password"
                 id="password"
-                value={user.password}
-                onChange={handleChange}
-                className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                name="password"
                 placeholder="Enter your password"
+                value={user.password} 
+                className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>

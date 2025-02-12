@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import SigninPage from "../pages/auth/SigninPage";
 import SignupPage from "../pages/auth/SignupPage";
+import BookingPage from "../pages/BookingPage";
 
 const RoutesWrapper = () => {
   return (
@@ -8,6 +9,7 @@ const RoutesWrapper = () => {
       <Routes>
         <Route path="/login" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/booking" element={<BookingPage />} />
       </Routes>
     </div>
   );
