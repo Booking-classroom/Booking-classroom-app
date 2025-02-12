@@ -14,7 +14,7 @@ const Navbar = () => {
   // Vérifiez si l'utilisateur est autorisé
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    setIsAuthenticated(!!token); // Définit l'état si le jeton existe
+    setIsAuthenticated(!token); // Définit l'état si le jeton existe
   }, []);
 
   // Fonction de déconnexion
@@ -56,6 +56,13 @@ const Navbar = () => {
           </>
         ) : (
           <>
+            <Link
+              to="booking"
+              className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+            >
+              <span>Calendrier</span>
+            </Link>
+
           <button
             onClick={handleLogout}
             className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition duration-300"
@@ -63,13 +70,6 @@ const Navbar = () => {
             <FaSignOutAlt />
             <span>Déconnexion</span>
           </button>
-
-          <Link
-              to="booking"
-              className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
-            >
-              <span>Réserver</span>
-            </Link>
         </>
         )}
       </div>

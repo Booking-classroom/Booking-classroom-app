@@ -1,55 +1,55 @@
 import { ReservationType } from "../types/reservation.type";
 
-
 const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
 
-export const createReservation = async (reservation: ReservationType) => {
-  const response = await fetch(`${API_URL}/reservation`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(reservation),
-  });
+const getToken = () => {
+  return localStorage.getItem('jwtToken');
+};
+
+const fetchWithToken = async (url: string, options: RequestInit = {}) => {
+  const token = getToken();
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`,
+    ...options.headers,
+  };
+
+  const response = await fetch(url, { ...options, headers });
   const data = await response.json();
   return data;
+};
+
+export const createReservation = async (reservation: ReservationType) => {
+  return await fetchWithToken(`${API_URL}/reservation`, {
+    method: "POST",
+    body: JSON.stringify(reservation),
+  });
 };
 
 export const findAllReservation = async () => {
-  const response = await fetch(`${API_URL}/reservation`);
-  const data = await response.json();
-  return data;
+  const reservation =  await fetchWithToken(`${API_URL}/reservation`);
+  return reservation;
 };
 
 export const findByClassroomId = async (id: string) => {
-  const response = await fetch(`${API_URL}/reservation/classroom/${id}`);
-  const data = await response.json();
-  return data;
+  const reservation = await fetchWithToken(`${API_URL}/reservation/classroom/${id}`);
+  console.log('reservation : ', reservation);
+  return reservation;
 };
 
 export const findByUserId = async (id: string) => {
-  const response = await fetch(`${API_URL}/reservation/user/${id}`);
-  const data = await response.json();
-  return data;
+  return await fetchWithToken(`${API_URL}/reservation/user/${id}`);
 };
 
 export const updateReservation = async (id: string, reservation: ReservationType) => {
-  const response = await fetch(`${API_URL}/reservation/${id}`, {
+  return await fetchWithToken(`${API_URL}/reservation/${id}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(reservation),
   });
-  const data = await response.json();
-  return data;
 };
 
 export const removeReservation = async (id: string) => {
-  return await fetch(`${API_URL}/reservation/${id}`, {
+  return await fetchWithToken(`${API_URL}/reservation/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 };
