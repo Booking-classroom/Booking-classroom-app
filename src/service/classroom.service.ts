@@ -14,9 +14,30 @@ const fetchWithToken = async (url: string, options: RequestInit = {}) => {
     ...options.headers,
   };
 
+  const handleResponse = async (response: Response) => {
+    const responseText = await response.text();
+
+    try {
+      const responseData = JSON.parse(responseText);
+
+      const newToken = responseData.token;
+      if (newToken) {
+        const token = newToken;
+        localStorage.setItem("jwtToken", token);
+      }
+
+      if (!response.ok) {
+        throw new Error(responseData.message || "Une erreur est survenue.");
+      }
+      return responseData;
+    } catch (error) {
+      console.error("Réponse du serveur (non-JSON) :", responseText);
+      throw new Error(responseText || "Une erreur inattendue est survenue.");
+    }
+  };
+
   const response = await fetch(url, { ...options, headers });
-  const data = await response.json();
-  return data;
+  return await handleResponse(response);
 };
 
 export const createClassroom = async (classroom: ClassroomType) => {

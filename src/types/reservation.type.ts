@@ -7,8 +7,8 @@ export enum Etat {
 
 export type ReservationType = {
     id: string;
-    userId: string;
-    classroomId: string;
+    user: string;
+    classroom: string;
     start_datetime: string;
     end_datetime: string;
     etat: Etat;
