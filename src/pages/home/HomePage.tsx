@@ -20,13 +20,13 @@ function HomePage() {
 
           <div className="space-x-2 flex">
             <Link to="/signup">
-              <button className="flex items-center gap-2 px-7 py-4 bg-white text-black rounded-xl shadow-md hover:bg-gray-300 transition">
+              <button className="flex items-center justify-center gap-2 px-7 py-4 bg-white text-black rounded-xl shadow-md hover:bg-gray-300 transition duration-300 focus:outline-none focus:ring-2 focus:ring-black backdrop-blur-lg">
                 <FaUserPlus size={20} />
                 S'inscrire
               </button>
             </Link>
             <Link to="/login">
-              <button className="flex items-center gap-2 px-7 py-4 bg-black text-white rounded-xl shadow-md hover:bg-gray-600 transition">
+              <button className="flex items-center justify-center gap-2 px-7 py-4 bg-black bg-opacity-50 text-white rounded-xl shadow-md hover:bg-opacity-70 backdrop-blur-lg focus:outline-none focus:ring-2 focus:ring-black transition duration-300">
                 <FaSignInAlt size={20} />
                 Se connecter
               </button>
