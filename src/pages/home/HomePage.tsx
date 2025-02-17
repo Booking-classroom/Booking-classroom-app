@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
-    <div className=" flex flex-col  bg-transparent text-black">
-      <div className="text-[280px] font-bold leading-none text-left ">
-        <h1>BOOKING CLASS</h1>
-        <h1>ROOM</h1>
+    <div className=" flex flex-col p-20 bg-transparent text-black">
+      <div className="text-[270px] font-bold leading-none text-left ">
+        <h1>BOOKING </h1>
+        <h1>CLASSROOM</h1>
       </div>
 
-      <div className="flex place-items-end pt-10 ">
+      <div className="flex place-items-stretch p-20 ">
         <div className="bg-black bg-opacity-50 p-8 max-w-lm  rounded-2xl shadow-xl text-left">
           <p className="text-white text-2xl mb-5">
             🎉 Bienvenue sur <strong>Booking Class Room</strong> – une
