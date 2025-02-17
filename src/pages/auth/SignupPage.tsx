@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserType } from "../../types/user.type";
 import { signUp } from "../../service/auth.service";
+import { FaUserPlus } from "react-icons/fa";
 
 const SignupPage = () => {
   const [user, setUser] = useState<Partial<UserType>>({});
@@ -83,9 +84,9 @@ const SignupPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black transition duration-300"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-black bg-opacity-50 text-white font-semibold rounded-lg hover:bg-opacity-70 backdrop-blur-lg focus:outline-none focus:ring-2 focus:ring-black transition duration-300"
           >
-            Sign Up
+            <FaUserPlus size={20} /> Sign Up
           </button>
         </form>
         <p className="text-center text-black mt-6 text-lg">

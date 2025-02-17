@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signIn } from "../../service/auth.service";
 import { UserType } from "../../types/user.type";
+import { FaSignInAlt } from "react-icons/fa";
 
 const SigninPage = () => {
   const [user, setUser] = useState<Partial<UserType>>({});
@@ -73,9 +74,9 @@ const SigninPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-black transition duration-300"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-black bg-opacity-50 text-white font-semibold rounded-lg hover:bg-opacity-70 backdrop-blur-lg focus:outline-none focus:ring-2 focus:ring-black transition duration-300"
           >
-            Login
+            <FaSignInAlt size={20} /> Login
           </button>
         </form>
         <p className="text-center text-black mt-6 text-lg">
