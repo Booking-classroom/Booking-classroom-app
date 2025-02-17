@@ -1,3 +1,5 @@
+import { UserType } from "./user.type";
+
 export enum Etat {
     CONFIRMEE = 'confirmée',
     EN_ATTENTE = 'en attente',
@@ -7,9 +9,9 @@ export enum Etat {
 
 export type ReservationType = {
     id: string;
-    user: string;
+    user: UserType | string;
     classroom: string;
     start_datetime: string;
     end_datetime: string;
-    etat: Etat;
+    etat: Etat | string;
     };

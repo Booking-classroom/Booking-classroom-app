@@ -3,7 +3,6 @@ import { UserType } from "../types/user.type";
 const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
 
 export const signUp = async (user: UserType) => {
-    console.log("API_URL", API_URL);
     try {
         const response = await fetch(`${API_URL}/auth/signup`, {
             method: "POST",

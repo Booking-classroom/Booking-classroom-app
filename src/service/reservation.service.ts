@@ -40,7 +40,7 @@ const fetchWithToken = async (url: string, options: RequestInit = {}) => {
   return await handleResponse(response);
 };
 
-export const createReservation = async (reservation: ReservationType) => {
+export const createReservation = async (reservation: Partial<ReservationType>) => {
   return await fetchWithToken(`${API_URL}/reservation`, {
     method: "POST",
     body: JSON.stringify(reservation),
@@ -53,7 +53,6 @@ export const findAllReservation = async () => {
 
 export const findByClassroomId = async (id: string) => {
   const reservation = await fetchWithToken(`${API_URL}/reservation/classroom/${id}`);
-  console.log('reservation : ', reservation);
   return reservation;
 };
 
@@ -61,7 +60,7 @@ export const findByUserId = async (id: string) => {
   return await fetchWithToken(`${API_URL}/reservation/user/${id}`);
 };
 
-export const updateReservation = async (id: string, reservation: ReservationType) => {
+export const updateReservation = async (id: string, reservation: Partial<ReservationType>) => {
   return await fetchWithToken(`${API_URL}/reservation/${id}`, {
     method: "PATCH",
     body: JSON.stringify(reservation),

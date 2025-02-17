@@ -6,14 +6,17 @@ import ClassroomCard from '../../components/ClassroomCard';
 const BookingPage = () => {
   const [classrooms, setClassrooms] = useState<ClassroomType[]>([]);
 
+
   useEffect(() => {
     const fetchClassroom = async () => {
       const data = await findAllClassroom();
       setClassrooms(data);
-      console.log(data);
     };
     fetchClassroom();
   }, []);
+
+
+  
 
   return (
     <div className="container mx-auto p-4">
