@@ -18,7 +18,7 @@ const Navbar = () => {
     const token = localStorage.getItem("jwtToken");
     if (token) {
       try {
-        const tokenData = token.split('.')[1];
+        const tokenData = token.split(".")[1];
         const decodedToken = atob(tokenData);
         const parsedToken = JSON.parse(decodedToken);
         if (parsedToken) {
@@ -92,7 +92,6 @@ const Navbar = () => {
         ) : (
           <>
             <Link
-
               to="/booking"
               className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
             >
