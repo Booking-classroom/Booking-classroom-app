@@ -1,15 +1,19 @@
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { UserType } from "../types/user.type";
 import SigninPage from "../pages/auth/SigninPage";
 import SignupPage from "../pages/auth/SignupPage";
 import HomePage from "../pages/home/HomePage";
 import BookingPage from "../pages/booking/BookingPage";
 import BookingSinglePage from "../pages/booking/[id]";
 import Classroom from "../pages/admin/classroom";
+import PersonnalCalendar from "../pages/booking/user/[userId]";
+
 
 
 const RoutesWrapper = () => {
 const [isAdmin, setIsAdmin] = useState(false);
+const [user, setUser] = useState<Partial<UserType>>({});
 
   const checkToken = () => {
     const token = localStorage.getItem("jwtToken");
@@ -21,6 +25,7 @@ const [isAdmin, setIsAdmin] = useState(false);
         if (parsedToken) {
           if (parsedToken.role === "admin") {
             setIsAdmin(true);
+            setUser(parsedToken);
           }
         }
       } catch (error) {
@@ -46,9 +51,11 @@ const [isAdmin, setIsAdmin] = useState(false);
         <Route path="/login" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/booking" element={<BookingPage />} />
+        <Route path="/booking" element={<BookingPage user={user}/>} />
         <Route path="/booking/:id" element={<BookingSinglePage />} />
-        <Route path="/classroom" element={<Classroom isAdmin={isAdmin}/>} />   
+        <Route path="/classroom" element={<Classroom isAdmin={isAdmin}/>} />
+        <Route path="/booking/user/:userId" element={<PersonnalCalendar />} />
+
       </Routes>
     </div>
   );
