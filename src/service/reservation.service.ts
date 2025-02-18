@@ -1,55 +1,74 @@
 import { ReservationType } from "../types/reservation.type";
 
+const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
 
-const API_URL = import.meta.env.API_URL;
+const getToken = () => {
+  return localStorage.getItem('jwtToken');
+};
 
-export const createReservation = async (reservation: ReservationType) => {
-  const response = await fetch(`${API_URL}/reservation`, {
+const fetchWithToken = async (url: string, options: RequestInit = {}) => {
+  const token = getToken();
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`,
+    ...options.headers,
+  };
+
+  const handleResponse = async (response: Response) => {
+    const responseText = await response.text();
+
+    try {
+      const responseData = JSON.parse(responseText);
+
+      const newToken = responseData.token;
+      if (newToken) {
+        const token = newToken;
+        localStorage.setItem("jwtToken", token);
+      }
+
+      if (!response.ok) {
+        throw new Error(responseData.message || "Une erreur est survenue.");
+      }
+      return responseData;
+    } catch (error) {
+      console.error("Réponse du serveur (non-JSON) :", responseText);
+      throw new Error(responseText || "Une erreur inattendue est survenue.");
+    }
+  };
+
+  const response = await fetch(url, { ...options, headers });
+  return await handleResponse(response);
+};
+
+export const createReservation = async (reservation: Partial<ReservationType>) => {
+  return await fetchWithToken(`${API_URL}/reservation`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(reservation),
   });
-  const data = await response.json();
-  return data;
 };
 
 export const findAllReservation = async () => {
-  const response = await fetch(`${API_URL}/reservation`);
-  const data = await response.json();
-  return data;
+  return await fetchWithToken(`${API_URL}/reservation`);
 };
 
 export const findByClassroomId = async (id: string) => {
-  const response = await fetch(`${API_URL}/reservation/classroom/${id}`);
-  const data = await response.json();
-  return data;
+  const reservation = await fetchWithToken(`${API_URL}/reservation/classroom/${id}`);
+  return reservation;
 };
 
 export const findByUserId = async (id: string) => {
-  const response = await fetch(`${API_URL}/reservation/user/${id}`);
-  const data = await response.json();
-  return data;
+  return await fetchWithToken(`${API_URL}/reservation/user/${id}`);
 };
 
-export const updateReservation = async (id: string, reservation: ReservationType) => {
-  const response = await fetch(`${API_URL}/reservation/${id}`, {
+export const updateReservation = async (id: string, reservation: Partial<ReservationType>) => {
+  return await fetchWithToken(`${API_URL}/reservation/${id}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(reservation),
   });
-  const data = await response.json();
-  return data;
 };
 
 export const removeReservation = async (id: string) => {
-  return await fetch(`${API_URL}/reservation/${id}`, {
+  return await fetchWithToken(`${API_URL}/reservation/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 };

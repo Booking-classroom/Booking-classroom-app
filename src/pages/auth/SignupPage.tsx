@@ -12,7 +12,7 @@ const SignupPage = () => {
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -22,15 +22,21 @@ const SignupPage = () => {
 
     try {
       const data = await signUp(user as UserType);
+
+      if (data.statusCode && data.statusCode >= 400) {
+        throw new Error(data.message || "An error occurred");
+      }
+      
       setUser(data);
       setSuccess("Account created successfully");
       navigate("/login");
     } catch (error) {
-      setError("Invalid email or password");
+      setError('email already exist');
     }
   };
 
   return (
+
     <div className="min-h-screen flex justify-center items-center">
       <div className="max-w-4xl w-full bg-white bg-opacity-30 backdrop-blur-lg shadow-2xl sm:rounded-xl flex flex-col p-12">
         <h1 className="text-4xl font-extrabold text-center text-black mb-8">
@@ -98,6 +104,7 @@ const SignupPage = () => {
             Login
           </Link>
         </p>
+
       </div>
     </div>
   );

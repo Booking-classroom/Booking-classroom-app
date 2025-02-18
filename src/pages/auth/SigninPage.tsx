@@ -46,29 +46,42 @@ const SigninPage = () => {
         {error && <p className="text-red-600 text-center mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-6">
+
             <label className="block text-black mb-2 text-lg" htmlFor="email">
+
               Email
             </label>
             <input
+              onChange={handleChange}
               id="email"
               value={user.email}
+
               onChange={handleChange}
               className="w-full px-5 py-3 bg-white bg-opacity-50 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+
               placeholder="Enter your email"
+              className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           <div className="mb-6">
+
             <label className="block text-black mb-2 text-lg" htmlFor="password">
+
+
               Password
             </label>
             <input
+              onChange={handleChange}
               type="password"
               id="password"
               value={user.password}
+
               onChange={handleChange}
               className="w-full px-5 py-3 bg-white bg-opacity-50 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+
               placeholder="Enter your password"
+              className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
