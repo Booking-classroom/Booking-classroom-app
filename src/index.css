@@ -10,14 +10,13 @@
     --custom-title-size: 80px;
   }
 }
-
 body {
-  background-image: url("img/3.jpg");
-  background-size: cover; /* Растягивает картинку, сохраняя пропорции */
+  background-image: url("img/201.jpg");
+  background-size: 100% 100%; /* Растягивает картинку по ширине и высоте */
   background-position: center; /* Центрирует изображение */
   background-repeat: no-repeat; /* Запрещает повторение */
-  width: 100vw;
-  height: 100vh;
+  background-attachment: fixed; /* Фиксирует фон */
+
   margin: 0;
   padding: 0;
 }
