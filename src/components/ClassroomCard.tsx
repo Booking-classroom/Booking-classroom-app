@@ -77,13 +77,13 @@ const ClassroomCard: React.FC<ClassroomCardProps> = ({
               <>
                 <button
                   onClick={onEdit}
-                  className="px-4 py-2 bg-black text-beige rounded-lg shadow-md hover:bg-gray-900"
+                  className="px-4 py-2 bg-white text-black rounded-lg shadow-md "
                 >
                   Modifier
                 </button>
                 <button
                   onClick={onDelete}
-                  className="px-4 py-2 bg-black text-beige rounded-lg shadow-md hover:bg-gray-900"
+                  className="px-4 py-2 bg-white text-black rounded-lg shadow-md"
                 >
                   Supprimer
                 </button>

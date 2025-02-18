@@ -27,8 +27,8 @@ const BookingPage = ({ user }: BookingPageProps) => {
   };
 
   return (
-    <div className="container mx-auto text-center p-20 ">
-      <h1 className="text-3xl font-bold mb-6">Booking Page</h1>
+    <div className="container mx-auto  p-20 ">
+      <h1 className="text-3xl font-bold mb-6 text-center">Booking Page</h1>
       <button
         onClick={onClick}
         className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md bg-white mb-4 "
