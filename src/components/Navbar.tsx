@@ -9,18 +9,43 @@ import {
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate(); // pour naviger
+  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
-  // Vérifiez si l'utilisateur est autorisé
+  const checkToken = () => {
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      try {
+        const tokenData = token.split('.')[1];
+        const decodedToken = atob(tokenData);
+        const parsedToken = JSON.parse(decodedToken);
+        if (parsedToken) {
+          setIsAuthenticated(true);
+          if (parsedToken.role === "admin") {
+            setIsAdmin(true);
+          }
+        }
+      } catch (error) {
+        console.error("Error parsing token:", error);
+      }
+    } else {
+      setIsAuthenticated(false);
+      setIsAdmin(false);
+    }
+  };
+
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    setIsAuthenticated(!token); // Définit l'état si le jeton existe
+    checkToken();
+    window.addEventListener("storage", checkToken);
+    return () => {
+      window.removeEventListener("storage", checkToken);
+    };
   }, []);
 
-  // Fonction de déconnexion
   const handleLogout = () => {
-    localStorage.removeItem("access_token"); // Supprime le token
-    setIsAuthenticated(false); // Réinitialise l'état d'autorisation
+    localStorage.removeItem("jwtToken");
+    setIsAuthenticated(false);
+    setIsAdmin(false);
     navigate("/");
   };
 
@@ -37,6 +62,14 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center space-x-6 text-lg">
+        {isAdmin && (
+          <Link
+            to="/classroom"
+            className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+          >
+            <span>Admin</span>
+          </Link>
+        )}
         {!isAuthenticated ? (
           <>
             <Link
@@ -47,8 +80,8 @@ const Navbar = () => {
               <span>Connexion</span>
             </Link>
             <Link
-              to="signup"
-              className="flex items-center space-x-2  text-black px-4 py-2 rounded-lg shadow-md"
+              to="/signup"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
             >
               <FaUserCircle />
               <span>Créer un compte</span>
@@ -57,20 +90,20 @@ const Navbar = () => {
         ) : (
           <>
             <Link
-              to="booking"
-              className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+              to="/booking"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
             >
               <span>Calendrier</span>
             </Link>
 
-          <button
-            onClick={handleLogout}
-            className="flex items-center space-x-2 bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700 transition duration-300"
-          >
-            <FaSignOutAlt />
-            <span>Déconnexion</span>
-          </button>
-        </>
+            <button
+              onClick={handleLogout}
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+            >
+              <FaSignOutAlt />
+              <span>Déconnexion</span>
+            </button>
+          </>
         )}
       </div>
     </nav>
