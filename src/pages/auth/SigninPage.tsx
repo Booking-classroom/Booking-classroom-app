@@ -10,7 +10,7 @@ const SigninPage = () => {
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,20 +55,14 @@ const SigninPage = () => {
               onChange={handleChange}
               id="email"
               value={user.email}
-
-              onChange={handleChange}
               className="w-full px-5 py-3 bg-white bg-opacity-50 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-
               placeholder="Enter your email"
-              className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           <div className="mb-6">
 
             <label className="block text-black mb-2 text-lg" htmlFor="password">
-
-
               Password
             </label>
             <input
@@ -76,12 +70,8 @@ const SigninPage = () => {
               type="password"
               id="password"
               value={user.password}
-
-              onChange={handleChange}
               className="w-full px-5 py-3 bg-white bg-opacity-50 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-
               placeholder="Enter your password"
-              className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
