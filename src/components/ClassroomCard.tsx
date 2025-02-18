@@ -1,14 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { ClassroomType } from '../types/classroom.type';
+import { ClassroomType } from "../types/classroom.type";
 import { updateClassroom, removeClassroom } from "../service/classroom.service";
+import { FaCalendarAlt } from "react-icons/fa";
 
 interface ClassroomCardProps {
   classroom: ClassroomType;
   isAdmin?: boolean;
 }
 
-const ClassroomCard: React.FC<ClassroomCardProps> = ({ classroom, isAdmin }) => {
+const ClassroomCard: React.FC<ClassroomCardProps> = ({
+  classroom,
+  isAdmin,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [classroomInfo, setClassroomInfo] = useState<ClassroomType>(classroom);
   const navigate = useNavigate();
@@ -44,55 +48,101 @@ const ClassroomCard: React.FC<ClassroomCardProps> = ({ classroom, isAdmin }) => 
   };
 
   return (
-    <div className="card bg-white shadow-md rounded-lg p-6">
+    <div className="relative p-6 rounded-xl shadow-lg backdrop-blur-lg bg-black/20 border border-gray-600 divide-y divide-gray-500">
       {!isEditing ? (
         <>
-          <h2 className="text-xl font-bold mb-2">{classroom.name}</h2>
-          <p className="text-gray-700 mb-2">{classroom.description}</p>
-          <p className="text-gray-700 mb-2">Capacité: {classroom.capacity}</p>
-          <p className="text-gray-700 mb-2">Disponible: {classroom.isAvailable ? 'Oui' : 'Non'}</p>
-          <div className="flex space-x-2">
-            <button onClick={onClick} className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md">Voir le calendrier</button>
+          <h2 className="text-2xl text-black font-bold pb-2">
+            {classroom.name}
+          </h2>
+          <div className="py-2">
+            <p className="text-black">{classroom.description}</p>
+          </div>
+          <div className="py-2">
+            <p className="text-black">Capacité: {classroom.capacity}</p>
+          </div>
+          <div className="py-2">
+            <p className="text-black">
+              Disponible: {classroom.isAvailable ? "Oui" : "Non"}
+            </p>
+          </div>
+          <div className="flex space-x-4 pt-4">
+            <button
+              onClick={onClick}
+              className="px-4 py-2 bg-white text-black rounded-lg shadow-md flex items-center space-x-2"
+            >
+              <FaCalendarAlt size={18} />
+              <span>Voir le calendrier</span>
+            </button>
             {isAdmin && (
               <>
-                <button onClick={onEdit} className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md">Modifier</button>
-                <button onClick={onDelete} className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md">Supprimer</button>
+                <button
+                  onClick={onEdit}
+                  className="px-4 py-2 bg-white text-black rounded-lg shadow-md "
+                >
+                  Modifier
+                </button>
+                <button
+                  onClick={onDelete}
+                  className="px-4 py-2 bg-white text-black rounded-lg shadow-md"
+                >
+                  Supprimer
+                </button>
               </>
             )}
           </div>
         </>
       ) : (
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-3 pt-4">
           <input
-            className="text-xl font-bold mb-2 border border-gray-300 rounded-lg p-2"
+            className="border border-gray-500 rounded-lg p-2 text-xl font-bold bg-gray-100 text-black"
             type="text"
             value={classroomInfo.name}
-            onChange={(e) => setClassroomInfo({ ...classroomInfo, name: e.target.value })}
+            onChange={(e) =>
+              setClassroomInfo({ ...classroomInfo, name: e.target.value })
+            }
           />
           <input
-            className="text-gray-700 mb-2 border border-gray-300 rounded-lg p-2"
+            className="border border-gray-500 rounded-lg p-2 bg-gray-100 text-black"
             type="text"
             value={classroomInfo.description}
-            onChange={(e) => setClassroomInfo({ ...classroomInfo, description: e.target.value })}
+            onChange={(e) =>
+              setClassroomInfo({
+                ...classroomInfo,
+                description: e.target.value,
+              })
+            }
           />
           <input
-            className="text-gray-700 mb-2 border border-gray-300 rounded-lg p-2"
+            className="border border-gray-500 rounded-lg p-2 bg-gray-100 text-black"
             type="number"
             value={classroomInfo.capacity}
-            onChange={(e) => setClassroomInfo({ ...classroomInfo, capacity: parseInt(e.target.value) })}
+            onChange={(e) =>
+              setClassroomInfo({
+                ...classroomInfo,
+                capacity: parseInt(e.target.value),
+              })
+            }
           />
           <div className="flex items-center space-x-2">
-            <label className="text-gray-700 mb-2">Disponible</label>
+            <label className="text-gray-800">Disponible</label>
             <input
-              className="text-gray-700 mb-2"
               type="checkbox"
               checked={classroomInfo.isAvailable}
-              onChange={(e) => setClassroomInfo({ ...classroomInfo, isAvailable: e.target.checked })}
+              onChange={(e) =>
+                setClassroomInfo({
+                  ...classroomInfo,
+                  isAvailable: e.target.checked,
+                })
+              }
+              className="accent-black"
             />
           </div>
-          <div>
-            <button onClick={onSave} className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md">Enregistrer</button>
-          </div>
+          <button
+            onClick={onSave}
+            className="px-4 py-2 bg-black text-beige rounded-lg shadow-md hover:bg-gray-900"
+          >
+            Enregistrer
+          </button>
         </div>
       )}
     </div>
