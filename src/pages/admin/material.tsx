@@ -19,7 +19,6 @@ const Material = ({ isAdmin }: MaterialProps) => {
         const sortedData = data.sort((a: MaterialType, b: MaterialType) => Number(a.id) - Number(b.id));
         setMaterials(sortedData);
         setLoading(false);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching material:", error);
       }

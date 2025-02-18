@@ -81,10 +81,8 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
               slot.start.getTime() === newSlot.start.getTime() &&
               slot.end.getTime() === newSlot.end.getTime()
           );
-          console.log
 
           if (isAlreadySelected) {
-            console.log('already selected');
             // Si déjà sélectionné, désélectionner
             const updatedSlots = selectedSlots.filter(
               (slot) =>

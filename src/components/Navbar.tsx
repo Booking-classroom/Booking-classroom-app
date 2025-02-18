@@ -106,6 +106,12 @@ const Navbar = () => {
               <FaRegCalendarAlt className="w-5 h-5" />
               <span>Calendrier</span>
             </Link>
+            <Link
+              to="/booking/material"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+            >
+              <span>Materiel</span>
+            </Link>
 
             <button
               onClick={handleLogout}
