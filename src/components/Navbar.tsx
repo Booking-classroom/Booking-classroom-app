@@ -65,12 +65,20 @@ const Navbar = () => {
 
       <div className="flex items-center space-x-6 text-lg">
         {isAdmin && (
+          <>
           <Link
             to="/classroom"
             className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
           >
-            <span>Admin</span>
+            <span>Classroom</span>
           </Link>
+          <Link
+            to="/material"
+            className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+          >
+            <span>Material</span>
+          </Link>
+          </>
         )}
         {!isAuthenticated ? (
           <>
