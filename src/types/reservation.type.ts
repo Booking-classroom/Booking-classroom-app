@@ -1,3 +1,4 @@
+import { ClassroomType } from "./classroom.type";
 import { UserType } from "./user.type";
 
 export enum Etat {
@@ -10,7 +11,7 @@ export enum Etat {
 export type ReservationType = {
     id: string;
     user: UserType | string;
-    classroom: string;
+    classroom: ClassroomType | string;
     start_datetime: string;
     end_datetime: string;
     etat: Etat | string;

@@ -40,8 +40,9 @@ const BookingSinglePage = () => {
     if (!id || selectedSlots.length === 0 || !user) return;
 
     for (const slot of selectedSlots) {
+      console.log('user : ', user);
       const reservation = {
-        userId: user.id,
+        user: user.id,
         classroom: id,
         start_datetime: slot.start.toISOString(),
         end_datetime: slot.end.toISOString(),
