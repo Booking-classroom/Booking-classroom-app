@@ -40,7 +40,6 @@ const BookingSinglePage = () => {
     if (!id || selectedSlots.length === 0 || !user) return;
 
     for (const slot of selectedSlots) {
-      console.log('user : ', user);
       const reservation = {
         user: user.id,
         classroom: id,

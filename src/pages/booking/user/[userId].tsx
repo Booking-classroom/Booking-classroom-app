@@ -13,10 +13,8 @@ const PersonnalCalendar = () => {
 
     const fetchReservations = async (userId: string) => {
       try {
-        console.log(userId);
         const data = await findByUserId(userId);
         setReservations(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching reservations:", error);
       }

@@ -9,6 +9,7 @@ import BookingSinglePage from "../pages/booking/[id]";
 import Classroom from "../pages/admin/classroom";
 import PersonnalCalendar from "../pages/booking/user/[userId]";
 import Material from "../pages/admin/material";
+import MaterialPage from "../pages/booking/materialPage";
 
 
 
@@ -57,6 +58,7 @@ const [user, setUser] = useState<Partial<UserType>>({});
         <Route path="/classroom" element={<Classroom isAdmin={isAdmin}/>} />
         <Route path="/material" element={<Material isAdmin={isAdmin} />} />
         <Route path="/booking/user/:userId" element={<PersonnalCalendar />} />
+        <Route path="/booking/material/" element={<MaterialPage />} />
 
       </Routes>
     </div>

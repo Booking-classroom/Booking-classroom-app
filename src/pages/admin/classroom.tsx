@@ -19,7 +19,6 @@ const Classroom = ({ isAdmin }: ClassroomProps) => {
          const sortedData = data.sort((a: ClassroomType, b: ClassroomType) => Number(a.id) - Number(b.id));
          setClassrooms(sortedData);
         setLoading(false);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching classrooms:", error);
       }

@@ -23,7 +23,6 @@ const BookingPage = ({ user }: BookingPageProps) => {
   }, []);
 
   const onClick = () => {
-    console.log(user);
     navigate(`/booking/user/${user.id}`);
   };
 
