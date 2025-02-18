@@ -9,7 +9,6 @@ import Classroom from "../pages/admin/classroom";
 
 
 const RoutesWrapper = () => {
-const [isAuthenticated, setIsAuthenticated] = useState(false);
 const [isAdmin, setIsAdmin] = useState(false);
 
   const checkToken = () => {
@@ -20,7 +19,6 @@ const [isAdmin, setIsAdmin] = useState(false);
         const decodedToken = atob(tokenData);
         const parsedToken = JSON.parse(decodedToken);
         if (parsedToken) {
-          setIsAuthenticated(true);
           if (parsedToken.role === "admin") {
             setIsAdmin(true);
           }
@@ -29,7 +27,6 @@ const [isAdmin, setIsAdmin] = useState(false);
         console.error("Error parsing token:", error);
       }
     } else {
-      setIsAuthenticated(false);
       setIsAdmin(false);
     }
   };
