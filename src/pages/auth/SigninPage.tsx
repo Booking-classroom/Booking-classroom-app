@@ -46,34 +46,32 @@ const SigninPage = () => {
         <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-6">
             <label
-              className="block text-blue-500 mb-2 text-lg"
-              htmlFor="email"
-            >
+              className="block text-blue-500 mb-2 text-lg">
               Email
             </label>
             <input
+              onChange={handleChange}
               id="email"
               value={user.email}
-              onChange={handleChange}
-              className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name="email"
               placeholder="Enter your email"
+              className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           <div className="mb-6">
             <label
-              className="block text-blue-500 mb-2 text-lg"
-              htmlFor="password"
-            >
+              className="block text-blue-500 mb-2 text-lg">
               Password
             </label>
             <input
+              onChange={handleChange}
               type="password"
               id="password"
               value={user.password}
-              onChange={handleChange}
-              className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name="password"
               placeholder="Enter your password"
+              className="w-full px-5 py-3 bg-gray-50 text-blue-600 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>

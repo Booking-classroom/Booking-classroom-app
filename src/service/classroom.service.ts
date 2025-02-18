@@ -1,56 +1,73 @@
 import { ClassroomType } from "../types/classroom.type";
 
+const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
 
-const API_URL = import.meta.env.API_URL;
+const getToken = () => {
+  return localStorage.getItem('jwtToken');
+};
+
+const fetchWithToken = async (url: string, options: RequestInit = {}) => {
+  const token = getToken();
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`,
+    ...options.headers,
+  };
+
+  const handleResponse = async (response: Response) => {
+    const responseText = await response.text();
+
+    try {
+      const responseData = JSON.parse(responseText);
+
+      const newToken = responseData.token;
+      if (newToken) {
+        const token = newToken;
+        localStorage.setItem("jwtToken", token);
+      }
+
+      if (!response.ok) {
+        throw new Error(responseData.message || "Une erreur est survenue.");
+      }
+      return responseData;
+    } catch (error) {
+      console.error("Réponse du serveur (non-JSON) :", responseText);
+      throw new Error(responseText || "Une erreur inattendue est survenue.");
+    }
+  };
+
+  const response = await fetch(url, { ...options, headers });
+  return await handleResponse(response);
+};
 
 export const createClassroom = async (classroom: ClassroomType) => {
-  const response = await fetch(`${API_URL}/classroom`, {
+  return await fetchWithToken(`${API_URL}/classroom`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(classroom),
   });
-  const data = await response.json();
-  return data;
 };
 
 export const findAllClassroom = async () => {
-  const response = await fetch(`${API_URL}/classroom`);
-  const data = await response.json();
-  return data;
+  return await fetchWithToken(`${API_URL}/classroom`);
 };
 
 export const findOneClassroomById = async (id: string) => {
-  const response = await fetch(`${API_URL}/classroom/${id}`);
-  const data = await response.json();
-  return data;
+  return await fetchWithToken(`${API_URL}/classroom/${id}`);
 };
 
 export const findClassroomByAvailability = async (id: string) => {
-  const response = await fetch(`${API_URL}/classroom/availability/${id}`);
-  const data = await response.json();
-  return data;
+  return await fetchWithToken(`${API_URL}/classroom/availability/${id}`);
 };
 
-
 export const updateClassroom = async (id: string, classroom: ClassroomType) => {
-  const response = await fetch(`${API_URL}/classroom/${id}`, {
+  return await fetchWithToken(`${API_URL}/classroom/${id}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(classroom),
   });
-  const data = await response.json();
-  return data;
 };
 
 export const removeClassroom = async (id: string) => {
-  return await fetch(`${API_URL}/classroom/${id}`, {
+  return await fetchWithToken(`${API_URL}/classroom/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 };

@@ -21,3 +21,15 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.selected-slot {
+  background-color: rgba(0, 123, 255, 0.5);
+  border: 1px solid #007bff;
+}
+
+.owned-slot {
+  background-color: #4caf50; /* Vert */
+  border-color: #388e3c;
+  color: white;
+}
+

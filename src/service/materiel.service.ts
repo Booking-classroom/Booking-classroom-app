@@ -1,6 +1,6 @@
 import { MaterialType } from "../types/material.type";
 
-const API_URL = import.meta.env.API_URL;
+const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
 
 export const createMaterial = async (material: MaterialType) => {
   const response = await fetch(`${API_URL}/material`, {
