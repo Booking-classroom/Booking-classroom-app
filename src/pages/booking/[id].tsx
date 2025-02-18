@@ -1,14 +1,17 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { createReservation } from '../../service/reservation.service';
+import { findOneClassroomById } from '../../service/classroom.service';
 import BookingCalendar from '../../components/BookingCalendar';
 import { findOneUserById } from '../../service/user.service';
 import { UserType } from '../../types/user.type';
+import { ClassroomType } from '../../types/classroom.type';
 
 const BookingSinglePage = () => {
   const { id } = useParams<{ id: string }>();
   const [selectedSlots, setSelectedSlots] = useState<{ start: Date; end: Date }[]>([]);
   const [user, setUser] = useState<UserType>();
+  const [classroom, setClassroom] = useState<ClassroomType>();
 
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
@@ -36,6 +39,25 @@ const BookingSinglePage = () => {
 
   }, []);
 
+
+  useEffect(() => {
+    const fetchClassroom = async () => {
+      console.log('id:', id);
+      if (!id) return;
+      try {
+        const data = await findOneClassroomById(id);
+        setClassroom(data);
+        console.log('classroom:', data);
+      } catch (error) {
+        console.error("Error fetching classroom:", error);
+      }
+    };
+    fetchClassroom();
+  }, [id]);
+
+
+  
+
   const handleReservation = async () => {
     if (!id || selectedSlots.length === 0 || !user) return;
 
@@ -59,9 +81,9 @@ const BookingSinglePage = () => {
   }
 
   return (
-    <div>
-      <h1>Booking Single Page : {id}</h1>
-      Pour réserver, sélectionnez un créneau horaire puis cliquez sur réserver.
+    <div className='gap-4 mb-8'>
+      <h1 className='text-8xl font-semibold' >{classroom?.name}</h1>
+      <h2 className='text-xl'>Pour réserver, sélectionnez un créneau horaire puis cliquez sur réserver.</h2>
       <BookingCalendar
         id={id}
         selectedSlots={selectedSlots}
@@ -73,7 +95,7 @@ const BookingSinglePage = () => {
         }}
         userId={user?.id || ''}
       />
-      <button onClick={handleReservation} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+      <button onClick={handleReservation} className="mt-4 bg-white text-black py-2 px-4 rounded">
         Réserver
       </button>
     </div>

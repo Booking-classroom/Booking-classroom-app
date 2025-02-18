@@ -43,7 +43,6 @@ const BookingMaterial: React.FC<BookingMaterialProps> = ({
     setIsBooked(isBooked);
   }, [selectedReservation, reservationMaterial, material.id]);
 
-  // Filtre les réservations où le matériel est disponible
   useEffect(() => {
         const reservedForThisMaterial = reservationMaterial
       .filter((rm) => {

@@ -9,5 +9,5 @@ export type MaterialType = {
     id: string;
     name: string;
     description: string;
-    etat: Etat;
+    etat: Etat | string;
     };
