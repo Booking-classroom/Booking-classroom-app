@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { MaterialType } from "../types/material.type";
 import { updateMaterial, removeMaterial } from "../service/material.service";
+import { FaCalendarAlt } from "react-icons/fa";
 
 interface ClassroomCardProps {
   material: MaterialType;
@@ -44,37 +45,74 @@ const MaterialCard: React.FC<ClassroomCardProps> = ({ material, isAdmin }) => {
   };
 
   return (
-    <div className="card bg-white shadow-md rounded-lg p-6">
+    <div className="relative p-6 rounded-xl shadow-lg backdrop-blur-lg bg-black/20 border border-gray-600 divide-y divide-gray-500 transition-all hover:shadow-xl hover:scale-105">
       {!isEditing ? (
         <>
-          <h2 className="text-xl font-bold mb-2">{material.name}</h2>
-          <p className="text-gray-700 mb-2">{material.description}</p>
-          <div className="flex space-x-2">
-            <button onClick={onClick} className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md">Voir le calendrier</button>
+          <div className="border-b pb-3 mb-3">
+            <h2 className="text-2xl text-black font-bold">{material.name}</h2>
+            <p className="text-black">{material.description}</p>
+          </div>
+          <div className="flex space-x-4 pt-4">
+            <button
+              onClick={onClick}
+              className="px-4 py-2 bg-white text-black rounded-lg shadow-md flex items-center space-x-2 transition-all"
+            >
+              <FaCalendarAlt size={18} />
+              <span>Voir le calendrier</span>
+            </button>
             {isAdmin && (
               <>
-                <button onClick={onEdit} className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md">Modifier</button>
-                <button onClick={onDelete} className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md">Supprimer</button>
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="px-4 py-2 bg-white text-black ite rounded-lg shadow-md transition-all
+                  "
+                >
+                  Modifier
+                </button>
+                <button
+                  onClick={onDelete}
+                  className="px-4 py-2 bg-white text-black rounded-lg shadow-md transition-all"
+                >
+                  Supprimer
+                </button>
               </>
             )}
           </div>
         </>
       ) : (
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-3 pt-4">
           <input
-            className="text-xl font-bold mb-2 border border-gray-300 rounded-lg p-2"
+            className="border border-gray-500 rounded-lg p-2 text-xl font-bold bg-gray-100 text-black focus:ring-2 "
             type="text"
             value={materialInfo.name}
-            onChange={(e) => setMaterialInfo({ ...materialInfo, name: e.target.value })}
+            onChange={(e) =>
+              setMaterialInfo({ ...materialInfo, name: e.target.value })
+            }
           />
           <input
-            className="text-gray-700 mb-2 border border-gray-300 rounded-lg p-2"
+            className="border border-gray-500 rounded-lg p-2 bg-gray-100 text-black focus:ring-2 focus:ring-gray-800"
             type="text"
             value={materialInfo.description}
-            onChange={(e) => setMaterialInfo({ ...materialInfo, description: e.target.value })}
+            onChange={(e) =>
+              setMaterialInfo({ ...materialInfo, description: e.target.value })
+            }
           />
-          <div>
-            <button onClick={onSave} className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md">Enregistrer</button>
+          <div className="flex space-x-2">
+            <button
+              onClick={() => {
+                onSave();
+                setIsEditing(false);
+              }}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md transition-all hover:bg-green-700"
+            >
+              Enregistrer
+            </button>
+            <button
+              onClick={() => setIsEditing(false)}
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg shadow-md transition-all hover:bg-gray-300"
+            >
+              Annuler
+            </button>
           </div>
         </div>
       )}
