@@ -5,7 +5,9 @@ import {
   FaSignInAlt,
   FaUserCircle,
   FaSignOutAlt,
+  FaRegCalendarAlt,
 } from "react-icons/fa";
+import { Calendar } from "fullcalendar/index.js";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -90,9 +92,11 @@ const Navbar = () => {
         ) : (
           <>
             <Link
+
               to="/booking"
               className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
             >
+              <FaRegCalendarAlt className="w-5 h-5" />
               <span>Calendrier</span>
             </Link>
 
