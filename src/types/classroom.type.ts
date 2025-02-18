@@ -3,7 +3,7 @@ export type ClassroomType = {
     name: string;
     description: string;
     capacity: number;
-    isAvailble: boolean;
+    isAvailable: boolean;
     createdAt: string;
     updatedAt: string;
     };
