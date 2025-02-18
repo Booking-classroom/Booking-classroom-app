@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { findAllMaterial } from "../../service/material.service";
 import { findAllReservationMaterial } from "../../service/reservationMaterial.service";
-import { findAllReservation, findByUserId } from "../../service/reservation.service";
+import { findByUserId } from "../../service/reservation.service";
 
 import { MaterialType } from "../../types/material.type";
 import { ReservationMaterialType } from "../../types/reservationMaterial.type";

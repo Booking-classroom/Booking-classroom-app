@@ -7,7 +7,6 @@ import {
   FaSignOutAlt,
   FaRegCalendarAlt,
 } from "react-icons/fa";
-import { Calendar } from "fullcalendar/index.js";
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -25,9 +25,13 @@ const BookingMaterial: React.FC<BookingMaterialProps> = ({
   const [selectedRes, setSelectedRes] = useState<string>("");
 
   useEffect(() => {
-    const res = reservationMaterial.filter((rm) => (
-      rm.reservation.id === parseInt(selectedReservation)
-    ));
+    const res = reservationMaterial.filter((rm) => {
+      if (typeof rm.reservation === 'string') {
+        return rm.reservation === selectedReservation;
+      } else {
+        return rm.reservation.id.toString() === selectedReservation;
+      }
+    });
 
     const isBooked = res.some((rm) => {
       if (typeof rm.material === 'string') {
@@ -49,7 +53,13 @@ const BookingMaterial: React.FC<BookingMaterialProps> = ({
           return rm.material.id === material.id;
         }
       })
-      .map((rm) => rm.reservation.id);
+      .map((rm) => {
+        if (typeof rm.reservation === 'string') {
+          return rm.reservation;
+        } else {
+          return rm.reservation.id.toString();
+        }
+      });
 
     const available = reservations.filter(
       (res) => !reservedForThisMaterial.includes(res.id)
