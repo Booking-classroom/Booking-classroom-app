@@ -25,7 +25,6 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
   const calendarRef = useRef<HTMLDivElement>(null);
   const [reservations, setReservations] = useState<ReservationType[]>([]);
 
-  // Récupération des réservations existantes
   useEffect(() => {
     const fetchReservations = async () => {
       const data = await findByClassroomId(id);
@@ -34,7 +33,6 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
     fetchReservations();
   }, [id]);
 
-  // Gestion de l'affichage et de la sélection des créneaux dans le calendrier
   useEffect(() => {
     if (calendarRef.current) {
       const newCalendar = new Calendar(calendarRef.current, {
@@ -48,6 +46,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
           minute: '2-digit',
           hour12: false,
         },
+        allDaySlot: false,
         slotMinTime: '08:00:00',
         slotMaxTime: '20:00:00',
         height: 'auto',
@@ -74,8 +73,6 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
         selectable: true,
         select: (info) => {
           const newSlot = { start: info.start, end: info.end };
-
-          // Vérification pour savoir si le créneau est déjà sélectionné
           const isAlreadySelected = selectedSlots.some(
             (slot) =>
               slot.start.getTime() === newSlot.start.getTime() &&
@@ -83,17 +80,15 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
           );
 
           if (isAlreadySelected) {
-            // Si déjà sélectionné, désélectionner
             const updatedSlots = selectedSlots.filter(
               (slot) =>
                 slot.start.getTime() !== newSlot.start.getTime() ||
                 slot.end.getTime() !== newSlot.end.getTime()
             );
-            setSelectedSlots(updatedSlots);  // Mettre à jour l'état des créneaux sélectionnés
-            onSelectSlot(null);  // Appel de la fonction de désélection
+            setSelectedSlots(updatedSlots);
+            onSelectSlot(null);
           } else {
-            // Sinon, ajouter à la sélection
-            onSelectSlot(newSlot);  // Appel de la fonction de sélection
+            onSelectSlot(newSlot);
           }
         },
         eventClick: async (info) => {
@@ -113,9 +108,8 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
             const confirmation = window.confirm('Voulez-vous vraiment supprimer cette réservation ?');
             if (confirmation) {
               try {
-                // Suppression de la réservation
                 await removeReservation(info.event.id);
-                info.event.remove();  // Suppression visuelle
+                info.event.remove();
                 alert('Réservation supprimée avec succès.');
               } catch (error) {
                 console.error('Erreur lors de la suppression:', error);
@@ -129,7 +123,6 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
             const confirmation = window.confirm('Voulez-vous vraiment modifier cette réservation ?');
             if (confirmation) {
               try {
-                // Mise à jour de la réservation
                 const updatedReservation = {
                   start_datetime: info.event.start?.toISOString(),
                   end_datetime: info.event.end?.toISOString(),
@@ -150,7 +143,7 @@ const BookingCalendar: React.FC<BookingCalendarProps> = ({
           }
         },
         
-        selectOverlap: false,  // Empêche la superposition de sélection
+        selectOverlap: false,
       });
       newCalendar.render();
     }

@@ -67,15 +67,15 @@ const Navbar = () => {
           <>
           <Link
             to="/classroom"
-            className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+            className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg bg-white shadow-md"
           >
-            <span>Classroom</span>
+            <span>Admin Salle</span>
           </Link>
           <Link
             to="/material"
-            className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+            className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg bg-white shadow-md"
           >
-            <span>Material</span>
+            <span>Admin matériel</span>
           </Link>
           </>
         )}
@@ -83,14 +83,14 @@ const Navbar = () => {
           <>
             <Link
               to="/login"
-              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg bg-white shadow-md"
             >
               <FaSignInAlt />
               <span>Connexion</span>
             </Link>
             <Link
               to="/signup"
-              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg bg-white shadow-md"
             >
               <FaUserCircle />
               <span>Créer un compte</span>
@@ -100,21 +100,21 @@ const Navbar = () => {
           <>
             <Link
               to="/booking"
-              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg bg-white shadow-md"
             >
               <FaRegCalendarAlt className="w-5 h-5" />
               <span>Calendrier</span>
             </Link>
             <Link
               to="/booking/material"
-              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg bg-white shadow-md"
             >
-              <span>Materiel</span>
+              <span>Matériel</span>
             </Link>
 
             <button
               onClick={handleLogout}
-              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg shadow-md"
+              className="flex items-center space-x-2 text-black px-4 py-2 rounded-lg bg-white shadow-md"
             >
               <FaSignOutAlt />
               <span>Déconnexion</span>

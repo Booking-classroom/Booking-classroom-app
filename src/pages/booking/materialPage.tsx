@@ -1,4 +1,3 @@
-// MaterialPage.tsx
 import { useEffect, useState } from "react";
 
 import { findAllMaterial } from "../../service/material.service";
