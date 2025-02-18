@@ -16,7 +16,8 @@ const Classroom = ({ isAdmin }: ClassroomProps) => {
     const fetchClassrooms = async () => {
       try {
         const data = await findAllClassroom();
-        setClassrooms(data);
+         const sortedData = data.sort((a: ClassroomType, b: ClassroomType) => Number(a.id) - Number(b.id));
+         setClassrooms(sortedData);
         setLoading(false);
         console.log(data);
       } catch (error) {
