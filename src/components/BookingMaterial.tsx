@@ -12,21 +12,23 @@ interface BookingMaterialProps {
   updateMaterials: () => void;
 }
 
-const BookingMaterial: React.FC<BookingMaterialProps> = ({ 
-  material, 
-  reservations, 
-  selectedReservation, 
-  reservationMaterial, 
-  updateMaterials 
+const BookingMaterial: React.FC<BookingMaterialProps> = ({
+  material,
+  reservations,
+  selectedReservation,
+  reservationMaterial,
+  updateMaterials,
 }) => {
   const [isBooked, setIsBooked] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [availableReservations, setAvailableReservations] = useState<ReservationType[]>([]);
+  const [availableReservations, setAvailableReservations] = useState<
+    ReservationType[]
+  >([]);
   const [selectedRes, setSelectedRes] = useState<string>("");
 
   useEffect(() => {
     const res = reservationMaterial.filter((rm) => {
-      if (typeof rm.reservation === 'string') {
+      if (typeof rm.reservation === "string") {
         return rm.reservation === selectedReservation;
       } else {
         return rm.reservation.id.toString() === selectedReservation;
@@ -34,7 +36,7 @@ const BookingMaterial: React.FC<BookingMaterialProps> = ({
     });
 
     const isBooked = res.some((rm) => {
-      if (typeof rm.material === 'string') {
+      if (typeof rm.material === "string") {
         return rm.material === material.id;
       } else {
         return rm.material.id === material.id;
@@ -44,16 +46,16 @@ const BookingMaterial: React.FC<BookingMaterialProps> = ({
   }, [selectedReservation, reservationMaterial, material.id]);
 
   useEffect(() => {
-        const reservedForThisMaterial = reservationMaterial
+    const reservedForThisMaterial = reservationMaterial
       .filter((rm) => {
-        if (typeof rm.material === 'string') {
+        if (typeof rm.material === "string") {
           return rm.material === material.id;
         } else {
           return rm.material.id === material.id;
         }
       })
       .map((rm) => {
-        if (typeof rm.reservation === 'string') {
+        if (typeof rm.reservation === "string") {
           return rm.reservation;
         } else {
           return rm.reservation.id.toString();
@@ -64,7 +66,6 @@ const BookingMaterial: React.FC<BookingMaterialProps> = ({
       (res) => !reservedForThisMaterial.includes(res.id)
     );
     setAvailableReservations(available);
-    
   }, [reservationMaterial, material.id, reservations]);
 
   const handleBook = async () => {
@@ -84,13 +85,15 @@ const BookingMaterial: React.FC<BookingMaterialProps> = ({
   };
 
   return (
-    <div className="card bg-white shadow-md rounded-lg p-6">
-      <h2 className="text-xl font-bold mb-2">{material.name}</h2>
-      <p className="text-gray-700 mb-2">{material.description}</p>
-      <p className="text-gray-700 mb-2">État: {material.etat}</p>
+    <div className="relative p-4 rounded-lg shadow-md bg-gray-100 border border-gray-400 w-72">
+      <h2 className="text-lg font-bold text-gray-900">{material.name}</h2>
+      <p className="text-gray-700 text-sm">{material.description}</p>
+      <p className="text-gray-700 text-sm">État: {material.etat}</p>
       <button
         onClick={() => setShowModal(true)}
-        className={`text-white px-4 py-2 rounded-lg shadow-md ${isBooked ? "bg-gray-500 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"}`}
+        className={`w-full mt-3 px-3 py-1.5 rounded-md shadow-md text-sm bg-white text-black border border-gray-400 ${
+          isBooked ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"
+        }`}
         disabled={isBooked}
       >
         {isBooked ? "Déjà réservé" : "Réserver"}
@@ -98,30 +101,33 @@ const BookingMaterial: React.FC<BookingMaterialProps> = ({
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-bold mb-4">Sélectionnez une réservation</h2>
+          <div className="bg-white p-4 rounded-lg shadow-lg w-72">
+            <h2 className="text-lg font-bold mb-3">
+              Sélectionnez une réservation
+            </h2>
             <select
               value={selectedRes}
               onChange={(e) => setSelectedRes(e.target.value)}
-              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md mb-4"
+              className="block w-full pl-3 pr-10 py-1.5 text-sm border border-gray-400 focus:outline-none focus:ring-gray-800 focus:border-gray-800 rounded-md mb-3"
             >
               <option value="">Sélectionnez une réservation</option>
               {availableReservations.map((reservation) => (
                 <option key={reservation.id} value={reservation.id}>
-                  {new Date(reservation.start_datetime).toLocaleString('fr-FR')} - {new Date(reservation.end_datetime).toLocaleString('fr-FR')}
+                  {new Date(reservation.start_datetime).toLocaleString("fr-FR")}{" "}
+                  - {new Date(reservation.end_datetime).toLocaleString("fr-FR")}
                 </option>
               ))}
             </select>
             <div className="flex justify-end space-x-2">
               <button
                 onClick={() => setShowModal(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+                className="px-3 py-1.5 bg-white text-black border border-gray-400 rounded-md text-sm shadow-md hover:bg-gray-200"
               >
                 Annuler
               </button>
               <button
                 onClick={handleBook}
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                className="px-3 py-1.5 bg-white text-black border border-gray-400 rounded-md text-sm shadow-md hover:bg-gray-200"
                 disabled={!selectedRes}
               >
                 Réserver

@@ -21,8 +21,10 @@ const Classroom = ({ isAdmin }: ClassroomProps) => {
     const fetchClassrooms = async () => {
       try {
         const data = await findAllClassroom();
-         const sortedData = data.sort((a: ClassroomType, b: ClassroomType) => Number(a.id) - Number(b.id));
-         setClassrooms(sortedData);
+        const sortedData = data.sort(
+          (a: ClassroomType, b: ClassroomType) => Number(a.id) - Number(b.id)
+        );
+        setClassrooms(sortedData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching classrooms:", error);
