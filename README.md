@@ -25,11 +25,11 @@ cd booking-classroom
 npm install
 ```
 
-###3️⃣ Démarrer le projet
+### 3️⃣ Démarrer le projet
 ```bash
 npm run dev
 ```
 
-##🛠️ Technologies utilisées
+## 🛠️ Technologies utilisées
 - React.js avec TypeScript ⚛️
 - TailwindCSS pour le style 🎨
